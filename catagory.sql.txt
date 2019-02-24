@@ -1,0 +1,1 @@
+Insert into catagory values('FICTION'),('POEM'),('SEINCE'),('CHIDLERN');

@@ -1,0 +1,106 @@
+ <!DOCTYPE html>
+<html lang="en"   xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Luhe</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/modern-business.css}" rel="stylesheet">
+    <script th:src="@{/ckeditor/ckeditor.js}"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark static-top" >
+      <div class="container">
+        <h1 class="navbar-brand">Luhe</h1>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/about}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/}">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/Article}">write</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/Article/current}">Articles</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+                
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+     <div class="card my-4">
+            <h5 class="card-header">Post Your Article</h5>
+            <div class="card-body">
+              <form method = "POST" th:action="@{|/Article/update/${Article.id}|}" th:object="${Article}">
+               <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+              	<div class="form-group">
+					<label>Title</label>
+					<input type="text" th:field="*{title}"  class="form-control" name="contact" placeholder="Add Title"/>
+					<span class="validationError"
+					th:if="${#fields.hasErrors('title')}"
+					th:errors="*{title}">state Error</span>
+				</div>
+                <div class="form-group">
+                	<label>Body</label>
+                  <textarea th:field="*{content}" id="editor1" class="form-control" rows="3">
+                  </textarea>
+                  <span class="validationError"
+					th:if="${#fields.hasErrors('content')}"
+					th:errors="*{content}">state Error</span>
+                </div>
+                <div  class="form-group">
+                	<Label>Catagory</Label>
+                	<select class="form-control" th:field="*{catagory}">
+                	<option th:each="a: ${catagories}"
+                		th:value="${a.id}"  th:text="${a.type}">
+                	</option>
+                	
+                	</select>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            
+              </form>
+            </div>
+          </div>
+ <!-- Bootstrap core JavaScript -->
+ <!-- Bootstrap core JavaScript -->
+           <script>
+  
+                CKEDITOR.replace( 'editor1' );
+            </script>
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+  </body>
+
+</html>

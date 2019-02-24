@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Luhe Project</title>
+ <!-- Bootstrap core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    
+   
+   <!--  -->
+
+</head>
+<body>
+	<p>All Article</p>
+	<div class = "container" th:each="a: ${articleOne}">
+	  
+	  <div class="col-lg-6">
+              <h2 class="card-title" th:text="${a.title}">BookTitle</h2>
+              <p class="card-text" th:utext="${a.content}">text</p>
+              <p class="card-text" th:text="${a.createdAt}">text</p>
+             <p class="card-text" th:text="${a.catagory.type}">text</p>
+            
+             
+             
+       
+       
+         <form th:action="@{|/Article/like/${a.id}|}" method="POST" > 
+          <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>	
+        	<span> <input class="btn btn-primary"   type="submit" name="like" >  </span>
+        	<p th:text="${a.likeRate}" > text </p>
+          </form >
+        	<form th:action="@{|/Article/dlike/${a.id}|}"  method="POST">
+        	 <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        	<span><input class="btn btn-primary" type="submit" name="dilike"/> </span>
+        	 <p th:text="${a.dislikeRate}" >text</p>    
+          </form>
+        </div>
+	</div>	
+</body>
+</html>
